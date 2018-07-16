@@ -17,6 +17,7 @@ SQL;
     if ($pictures_result->num_rows > 0) {
       while ($row = $pictures_result->fetch_assoc()) {
         $image = base64_encode($row['picture']);
+        $image_name = $row['name'];
         $image_id = $row['picture_id'];
         $thumbnail = "
           <div class='row'>
@@ -24,14 +25,16 @@ SQL;
               <a href='/portapage/picture.php?pictureid=$image_id&folderid=$folder_id&foldername=$folder_name' class='thumbnail'>
                 <img src='data:image/jpeg;base64,$image' alt='". $row['name'] ."' style='max-width: 500px'; border-radius: 50%;'>
               </a>
-            </div>" .
-            $row['name']
-          . "</div><br>
+              $image_name <br>
+              <a href='index.php?action=deleteimage&pictureid=$image_id&folderid=$folder_id&foldername=$folder_name'>Delete</a>
+            </div>
+          </div><br>
         ";
         echo $thumbnail;
       }
     }
   } else {
-    echo mysqli_error($conn);
+    echo $pictures_sql;
+    mysqli_error($conn);
   }
 ?>
