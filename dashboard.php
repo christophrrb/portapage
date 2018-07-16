@@ -15,6 +15,7 @@ SQL;
 
   if ($folder_result->num_rows > 0) {
     while ($row = $folder_result->fetch_assoc()) {
+      echo $row['folder_id'];
       /*TODO Find out how this works.*/
       $folder_thumbnail = "
         <div class='row'>
@@ -22,7 +23,7 @@ SQL;
             <div class='thumbnail'>
               <img src='...' alt='...'>
               <div class='caption'>
-                <h3>" . $row['name'] . "</h3>
+                <a href='folder.php?folderid=" . $row['folder_id'] ."'>" . $row['name'] . "</a>
                 <p>...</p>
                 <p><a>This may be removed</a>
               </div>
@@ -30,9 +31,8 @@ SQL;
           </div>
         </div>
       ";
+      echo $folder_thumbnail;
     }
-
-    echo $folder_thumbnail;
   } else {
     echo "<div class='alert alert-primary' role='alert'>You have no folders. Try creating one!</div>";
   }
