@@ -20,6 +20,14 @@
       upload_image();
     break;
 
+    case 'logout':
+      logout();
+    break;
+
+    case 'deleteimage':
+      delete_image();
+    break;
+
     default:
       header("Location: forms/signup.php");
     break;
@@ -132,6 +140,28 @@ SQL;
     if ($upload_result) {
       header("Location: dashboard.php");
     } else {
+      echo mysqli_error($conn);
+    }
+  }
+
+  //Delete Image
+  function delete_image() {
+    global $conn;
+
+    $user_id = $_SESSION['user_id'];
+    $picture_id = $_REQUEST['pictureid'];
+    $folder_id = $_REQUEST['folderid'];
+
+    $delete_image_sql = <<<SQL
+      DELETE FROM pictures WHERE picture_id = $picture_id and user_id = $user_id;
+SQL;
+
+    $delete_image_result = $conn->query($delete_image_sql);
+
+    if ($delete_image_result) {
+      header("Location: folder.php?folderid=$folder_id&foldername=$folder_name");
+    } else {
+      echo $delete_image_sql;
       mysqli_error($conn);
     }
   }
@@ -140,5 +170,6 @@ SQL;
   function logout() {
     session_unset();
     session_destroy();
+    header("Location: forms/login.php");
   }
 ?>
