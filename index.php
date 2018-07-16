@@ -12,6 +12,14 @@
       login();
     break;
 
+    case 'createfolder':
+      create_folder();
+    break;
+
+    case 'uploadimage':
+      upload_image()
+    break;
+
     default:
       header("Location: forms/signup.php");
     break;
@@ -83,6 +91,40 @@ SQL;
     }
   }
 
+  //Create Folder
+  function create_folder() {
+    global $conn;
+
+    $folder_name = $_REQUEST['folder-name'];
+    $user_id = $_SESSION['user_id'];
+
+    $create_folder_sql = <<<SQL
+      INSERT INTO folders(name, user_id)
+      VALUES("$folder_name", $user_id);
+SQL;
+
+    $create_folder_result = $conn->query($create_folder_sql);
+
+    if ($create_folder_result) {
+      header("Location: dashboard.php");
+    } else {
+      echo "The folder wasn't created.";
+      mysqli_error($conn);
+    }
+  }
+
+  //Upload Image
+  function upload_image() {
+    $image = $_REQUEST['image'];
+    $image_name = _REQUEST['image-name'];
+
+    $upload_sql = <<<SQL
+      INSERT INTO pictures(folder_id, user_id, name, picture)
+      VALUES();
+SQL;
+  }
+
+  //Logout
   function logout() {
     session_unset();
     session_destroy();
