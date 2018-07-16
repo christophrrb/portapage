@@ -4,6 +4,9 @@
   include_once $_SERVER['DOCUMENT_ROOT'] . '/portapage/web-assets/tpl/app_nav.php';
 ?>
 
+<!-- Sign up if no account. -->
+<div class="alert alert-secondary" role="alert">Don't have an account? <a href="signup.php">Sign Up</a></div>
+
 <div class="col-md-2"></div>
 <div class="col-md-8">
   <div class="card">
