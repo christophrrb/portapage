@@ -17,7 +17,7 @@
     break;
 
     case 'uploadimage':
-      upload_image()
+      upload_image();
     break;
 
     default:
@@ -115,13 +115,25 @@ SQL;
 
   //Upload Image
   function upload_image() {
-    $image = $_REQUEST['image'];
-    $image_name = _REQUEST['image-name'];
+    global $conn;
+
+    $user_id = $_SESSION['user_id'];
+    $image_name = $_REQUEST['image-name'];
+    $folder_id = $_REQUEST['folder-id'];
+    $imagetmp = addslashes(file_get_contents($_FILES['image']['tmp_name']));
 
     $upload_sql = <<<SQL
       INSERT INTO pictures(folder_id, user_id, name, picture)
-      VALUES();
+      VALUES($folder_id, $user_id, "$image_name", "$imagetmp");
 SQL;
+
+    $upload_result = $conn->query($upload_sql);
+
+    if ($upload_result) {
+      header("Location: dashboard.php");
+    } else {
+      mysqli_error($conn);
+    }
   }
 
   //Logout

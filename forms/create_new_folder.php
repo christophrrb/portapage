@@ -10,14 +10,14 @@
     <div class="card-header">Create a Folder</div>
     <div class="card-body">
       <form action="/portapage/index.php?action=createfolder" method="post">
-        <!-- Email -->
+        <!-- Folder Name -->
         <div class="form-group row">
           <label for="folder-name" class="col-md-4">Folder Name</label>
           <input type="text" name="folder-name" id="folder-name" class="col-md-8">
         </div>
         <!-- Submit -->
         <div class="form-group row">
-          <button type="submit" name="email" class="btn btn-primary" style="float: right;">Submit</button>  <!--TODO Make button float right.-->
+          <button type="submit" class="btn btn-primary" style="float: right;">Submit</button>
         </div>
       </form>
     </div>
