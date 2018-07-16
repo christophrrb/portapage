@@ -15,18 +15,28 @@ SQL;
 
   if ($folder_result->num_rows > 0) {
     while ($row = $folder_result->fetch_assoc()) {
-      echo $row['folder_id'];
+      $folder_id = $row['folder_id'];
+      $folder_name = $row['name'];
+
+      //Cover Image
+      $cover_image_sql = <<<SQL
+      SELECT picture FROM pictures WHERE folder_id = $folder_id LIMIT 1;
+SQL;
+      $cover_image_result = $conn->query($cover_image_sql);
+      $cover_image_row = $cover_image_result->fetch_assoc();
+      $cover_image = base64_encode($cover_image_row['picture']);
+
       /*TODO Find out how this works.*/
       $folder_thumbnail = "
         <div class='row'>
           <div class='col-sm-6 col-md-4'>
             <div class='thumbnail'>
-              <img src='...' alt='...'>
-              <div class='caption'>
-                <a href='folder.php?folderid=" . $row['folder_id'] ."'>" . $row['name'] . "</a>
-                <p>...</p>
-                <p><a>This may be removed</a>
-              </div>
+              <a href='folder.php?folderid=$folder_id&foldername=$folder_name'>
+                <img src='data:image/jpeg;base64, $cover_image' alt='". $row['name'] ."' style='max-width: 200px;'>
+                <div class='". $row['name'] . "'>
+                $folder_name
+              </a>
+              <p>...</p>
             </div>
           </div>
         </div>
