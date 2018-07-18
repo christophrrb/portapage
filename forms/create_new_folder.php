@@ -13,11 +13,15 @@
         <!-- Folder Name -->
         <div class="form-group row">
           <label for="folder-name" class="col-md-4">Folder Name</label>
-          <input type="text" name="folder-name" id="folder-name" class="col-md-8">
+          <input type="text" name="folder-name" id="folder-name" class="form-control col-md-8">
+        </div>
+        <div class="form-group row">
+          <label for="description" class="col-md-4">Folder Description</label>
+          <input type="textbox" name="description" id="description" class="form-control col-md-8">
         </div>
         <!-- Submit -->
         <div class="form-group row">
-          <button type="submit" class="btn btn-primary" style="float: right;">Submit</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </form>
     </div>
