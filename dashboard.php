@@ -13,10 +13,15 @@ SQL;
 
   $folder_result = $conn->query($folder_sql);
 
+  //Card Deck
+  echo "<div class='card-deck'>";
+
+
   if ($folder_result->num_rows > 0) {
     while ($row = $folder_result->fetch_assoc()) {
       $folder_id = $row['folder_id'];
       $folder_name = $row['name'];
+      $folder_description = $row['description'];
 
       //Cover Image
       $cover_image_sql = <<<SQL
@@ -26,24 +31,38 @@ SQL;
       $cover_image_row = $cover_image_result->fetch_assoc();
       $cover_image = base64_encode($cover_image_row['picture']);
 
-      /*TODO Find out how this works.*/
-      $folder_thumbnail = "
-        <div class='row'>
-          <div class='col-sm-6 col-md-4'>
-            <div class='thumbnail'>
-              <a href='folder.php?folderid=$folder_id&foldername=$folder_name'>
-                <img src='data:image/jpeg;base64, $cover_image' alt='". $row['name'] ."' style='max-width: 200px;'>
-                <div class='". $row['name'] . "'>
-                $folder_name
-              </a>
-              <p>...</p>
-            </div>
+      if ($cover_image) { //If there is a cover image, load it on the website. If not, don't. The difference between the if code and the else code is that one is echoing an img tag (if) and one isn't (else).
+        $folder_thumbnail = "
+          <div class='card'>
+            <a href='folder.php?folderid=$folder_id&foldername=$folder_name'>
+              <img src='data:image/jpeg;base64, $cover_image' alt='". $row['name'] ."' class='card-img-top'>
+              <div class='card-body'>
+                <h4>$folder_name</h4>
+                <p><i>$folder_description</i></p>
+              </div>
+            <a href='folder.php?folderid=$folder_id&foldername=$folder_name'>
           </div>
-        </div>
-      ";
-      echo $folder_thumbnail;
+
+        ";
+        echo $folder_thumbnail;
+      } else {
+        $folder_thumbnail = "
+          <div class='card'>
+            <a href='folder.php?folderid=$folder_id&foldername=$folder_name'>
+              <div class='card-body'>
+                <h4>$folder_name</h4>
+                <p><i>$folder_description</i></p>
+              </div>
+            <a href='folder.php?folderid=$folder_id&foldername=$folder_name'>
+          </div>
+
+        ";
+        echo $folder_thumbnail;
+      }
     }
   } else {
     echo "<div class='alert alert-primary' role='alert'>You have no folders. Try creating one!</div>";
   }
+
+  echo "</div>"
 ?>
