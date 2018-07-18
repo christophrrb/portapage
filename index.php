@@ -104,11 +104,12 @@ SQL;
     global $conn;
 
     $folder_name = $_REQUEST['folder-name'];
+    $description = $_REQUEST['description'];
     $user_id = $_SESSION['user_id'];
 
     $create_folder_sql = <<<SQL
-      INSERT INTO folders(name, user_id)
-      VALUES("$folder_name", $user_id);
+      INSERT INTO folders(name, description, user_id)
+      VALUES("$folder_name", "$description", $user_id);
 SQL;
 
     $create_folder_result = $conn->query($create_folder_sql);
