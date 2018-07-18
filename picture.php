@@ -39,10 +39,8 @@ SQL;
       //Set slider value
       if ($row['picture_id'] == $picture_id && $continue_increment) { //If the picture_id is equal to the one passed in from the URL and we haven't found a match between the two yet (the purpose of continue_increment), then put picture_value_increment in a Javascript variable named picture_value.
         echo "<script> var picture_value = $picture_value_increment; </script>";
-        echo $picture_value_increment;
         $continue_increment = false; //We've found a match, so don't increment anymore.
       } else {
-        echo $picture_value_increment;
         $picture_value_increment++; //We haven't found a match, so "increase the index" by 1.
       }
 
@@ -69,7 +67,8 @@ SQL;
  </div>
 
 <!-- Picture Slider -->
-<input type='range' min='0' class='slider' id='picture-slider'>
+<br>
+<center><input type='range' min='0' class='slider' id='picture-slider' class=''></center>
 
 <script>
   var picture_slider = document.getElementById("picture-slider");
