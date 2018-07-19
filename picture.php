@@ -1,5 +1,5 @@
 <?php
-  $page_title = "Upload Image";
+  $page_title = "Picture";
   include_once $_SERVER['DOCUMENT_ROOT'] . "/portapage/web-assets/tpl/app_header.php";
   include_once $_SERVER['DOCUMENT_ROOT'] . "/portapage/web-assets/tpl/app_nav.php";
 
@@ -60,9 +60,9 @@ SQL;
 ?>
 
 <div class='card'>
-   <img class='card-img-top' alt='$image_name' style='max-width: 100%' id="image-card">
+   <img class='card-img-top' alt='$image_name' style='max-width: 100%;' id='image-card'>
    <div class='card-body'>
-     <p class='card-text' id="card-text"></p>
+     <p class='card-text' id='card-text'></p>
    </div>
  </div>
 
